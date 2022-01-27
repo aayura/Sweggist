@@ -5,6 +5,7 @@ import os
 from webserver import keep_alive
 from discord_slash import SlashCommand, SlashContext
 from discord_slash.utils.manage_commands import create_choice, create_option
+from discord import Color
 
 intents = discord.Intents.all()
 intents.members = True
@@ -24,7 +25,7 @@ async def on_ready():
 
 @client.command()
 async def help(ctx):
-    embed = discord.Embed(title='Commands', description='These are the commands available to you at the moment.', color = discord.Colour.Green())
+    embed = discord.Embed(title='Commands', description='These are the commands available to you at the moment.', color = discord.Color.Green())
     embed.add_field(name='help', value='Shows this embed.', inline = True)
     await ctx.send(embed=embed)
 

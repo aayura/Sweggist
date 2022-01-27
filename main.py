@@ -534,7 +534,8 @@ async def on_command_error(ctx, error):
 
 @client.group(invoke_without_command=True)
 async def help(ctx):
-    embed = discord.Embed(title='Help', description='List of commands available to you, type $help <cmd> for more information.', color = discord.Color.yellow())
+    embed = discord.Embed(
+        title='Help', description='List of commands available to you, type $help <cmd> for more information.', color=0xFFFF00)
     embed.add_field(name='**Ecomony commands.**', value='beg, work, tsend, wsend, dp, wd, nacc', inline = False)
     embed.add_field(name='**Gambling commands**', value='coinflip', inline = False)
     embed.add_field(name='**Miscellaneous commands**', value='td, suggestion', inline=False)
@@ -542,61 +543,67 @@ async def help(ctx):
 
 @help.command()
 async def beg(ctx):
-    embed = discord.Embed(title='Beg', description='Beg for money like a loser.', color = discord.Color.yellow())
+    embed = discord.Embed(title='Beg', description='Beg for money like a loser.', color = 0xFFFF00)
     embed.add_field(name='**syntax**', value='`$beg`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def work(ctx):
-    embed = discord.Embed(title='work', description='Work and earn money.', color = discord.Color.yellow())
+    embed = discord.Embed(
+        title='work', description='Work and earn money.', color=0xFFFF00)
     embed.add_field(name='**syntax**', value='`$work`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def tsend(ctx):
-    embed = discord.Embed(title='tsend', description='Transfer money from bank to bank.', color = discord.Color.yellow())
+    embed = discord.Embed(title='tsend', description='Transfer money from bank to bank.', color = 0xFFFF00)
     embed.add_field(name='**syntax**', value='`$tsend <member> [amount]`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def wsend(ctx):
-    embed = discord.Embed(title='wsend', description='Give money from wallet to wallet.', color = discord.Color.yellow())
+    embed = discord.Embed(
+        title='wsend', description='Give money from wallet to wallet.', color=0xFFFF00)
     embed.add_field(name='**syntax**', value='`$wsend <member> [amount]`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def dp(ctx):
-    embed = discord.Embed(title='dp', description='Deposit money from wallet to bank account.', color = discord.Color.yellow())
+    embed = discord.Embed(title='dp', description='Deposit money from wallet to bank account.', color = 0xFFFF00)
     embed.add_field(name='**syntax**', value='`$dp [amount]`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def wd(ctx):
-    embed = discord.Embed(title='wd', description='Withdraw money from bank to wallet.', color = discord.Color.yellow())
+    embed = discord.Embed(
+        title='wd', description='Withdraw money from bank to wallet.', color=0xFFFF00)
     embed.add_field(name='**syntax**', value='`$wd [amount]`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def nacc(ctx):
-    embed = discord.Embed(title='nacc', description='Open account.', color = discord.Color.yellow())
+    embed = discord.Embed(
+        title='nacc', description='Open account.', color=0xFFFF00)
     embed.add_field(name='**syntax**', value='`$nacc`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def coinflip(ctx):
-    embed = discord.Embed(title='coinflip', description='Flip a coin and bet money on your call.', color = discord.Color.yellow())
+    embed = discord.Embed(title='coinflip', description='Flip a coin and bet money on your call.', color = 0xFFFF00)
     embed.add_field(name='**syntax**', value='`$coinflip <Heads/Tails> [Money]`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def td(ctx):
-    embed = discord.Embed(title='td', description='Play Truth or Dare with your friends!', color = discord.Color.yellow())
+    embed = discord.Embed(
+        title='td', description='Play Truth or Dare with your friends!', color=0xFFFF00)
     embed.add_field(name='**syntax**', value='`$td [Player_1] [Player_2] [Player_N]`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def suggestion(ctx):
-    embed = discord.Embed(title='suggestion', description='Suggest something for the bot or the server.', color = discord.Color.yellow())
+    embed = discord.Embed(
+        title='suggestion', description='Suggest something for the bot or the server.', color=0xFFFF00)
     embed.add_field(name='**syntax**', value='`$suggestion [suggestion]`', inline = False)
     await ctx.send(embed=embed)
 

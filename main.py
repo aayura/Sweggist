@@ -29,7 +29,7 @@ cursor.execute(
 db.commit()
 
 cursor.execute(
-    """CREATE TABLE IF NOT EXISTS suggestions (user_name text,suggestion text, msg_id int PRIMARY KEY)"""
+    """CREATE TABLE IF NOT EXISTS suggestions (msg_id int,user_name text,suggestion text)"""
 )
 db.commit()
 
@@ -576,12 +576,11 @@ async def check_suggestions(ctx):
     db.commit()
     chk = cursor.fetchall()
     for i in chk:
-        await ctx.send(f'{i}')
+        await ctx.send(f'{str(i)}')
 
 @client.command()
 @commands.has_permissions(kick_members=True)
-async def rem_suggestions(ctx, msg_id):
-    msg_id = int(msg_id)
+async def rem_suggestions(ctx, msg_id: int):
     cursor.execute(f"DELETE FROM suggestions WHERE msg_id = {msg_id};")
     db.commit()
     await ctx.send("Suggestion removed.")

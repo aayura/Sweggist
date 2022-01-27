@@ -28,6 +28,11 @@ cursor.execute(
 )
 db.commit()
 
+cursor.execute(
+    """CREATE TABLE IF NOT EXISTS suggestions (user_id int PRIMARY KEY,suggestion text)"""
+)
+db.commit()
+
 @client.event
 async def on_ready():
     print("Bot is ready.")
@@ -520,10 +525,6 @@ async def Helpme(ctx):
         description='These are the commands available for use at the moment.',
         color=0x000000)
     embed.set_author(name=f"{ctx.author.name}")
-    embed.add_field(
-        name="v!paww",
-        value='Happy animals make humans happy, Watch some cute pandas.',
-        inline=True)
     embed.add_field(name="$nacc",
                     value='New currency system! Open an account now!',
                     inline=True)
@@ -554,6 +555,23 @@ async def Helpme(ctx):
         value='Transfer as much money as you want to anyone\'s bank account.',
         inline=True)
     await ctx.send(embed=embed)
+
+@client.command()
+async def suggestion(ctx, *, suggest):
+    cursor.execute("INSERT OR IGNORE INTO suggestions VALUES(?,?);",
+                   (int(ctx.author.id), str(suggest)))
+    db.commit()
+    embed = discord.Embed(title='Suggestion added.', description=f'**{suggest}**', color = discord.Color.green())
+    embed.set_author(name=f'{ctx.author.name}')
+
+@client.command()
+@commands.has_permissions(kick_members=True)
+async def check_suggestions(ctx):
+    chk = cursor.execute("SELECT * FROM suggestions")
+    db.commit()
+    chk = cursor.fetchall()
+    chk = str(chk).strip("()[]{},")
+    await ctx.send(f'{chk}')
 
 keep_alive()
 TOKEN = os.environ['DISCORD_BOT_TOKEN']

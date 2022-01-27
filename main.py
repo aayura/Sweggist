@@ -44,20 +44,28 @@ async def on_ready():
 
 
 @client.command()
-async def td(ctx):
+async def td(ctx, *Players: commands.MemberConverter):
+    lst = []
+    for i in Players:
+        lst.append(i)
+    player = random.choice(lst)
+    await ctx.send(f'{player}, Its your turn to choose.\n')
     await ctx.send("Truth or dare?")
     with open("tdq.json", "r") as f:
         data = json.load(f)
         def check(msg):
-          return msg.author == ctx.author and msg.channel == ctx.channel and msg.content.lower() in ["truth","dare"]
-        msg = await client.wait_for("message", check=check)
-        if msg.content.lower() == "truth":
-          await ctx.send(random.choice(data["truth"]))
-        elif msg.content.lower() == "dare":
-          await ctx.send(random.choice(data["dare"]))
-        else:
-          await ctx.send("This is truth and dare not something else, Choose from truth or dare.")
+          return msg.author.id == player.id and msg.channel == ctx.channel and msg.content.lower() in ["truth","dare"]
+        msg = await client.wait_for("message",check=check, timeout = 10)
 
+        try:
+            if msg.content.lower() == "truth":
+                await ctx.send(random.choice(data["truth"]))
+            elif msg.content.lower() == "dare":
+                await ctx.send(random.choice(data["dare"]))
+            else:
+                await ctx.send("This is truth and dare not something else, Choose from truth or dare.")
+        except asyncio.TimeoutError:
+            await ctx.send("Timed out, Reply faster next time.")
 
 @client.command()
 async def nacc(ctx):

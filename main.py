@@ -29,9 +29,10 @@ cursor.execute(
 db.commit()
 
 cursor.execute(
-    """CREATE TABLE IF NOT EXISTS suggestions (user_id int PRIMARY KEY,suggestion text)"""
+    """CREATE TABLE IF NOT EXISTS suggestions (user_name text,suggestion text, user_id int PRIMARY KEY)"""
 )
 db.commit()
+
 
 @client.event
 async def on_ready():
@@ -40,9 +41,11 @@ async def on_ready():
                                 name="For $Helpme.")
     await client.change_presence(status=discord.Status.dnd, activity=activity)
 
+
 @client.command()
 async def td(ctx):
     pass
+
 
 @client.command()
 async def nacc(ctx):
@@ -364,14 +367,14 @@ async def wsend(ctx, member: discord.Member, money: int):
             "You can't send more than 20000 coins via hand. Use v!transfermoney for transfering money to bank account."
         )
 
+
 @client.command()
 @commands.has_permissions(kick_members=True)
 async def kick(ctx, member: commands.MemberConverter, *, reason=None):
     await member.kick(reason=reason)
     embed = discord.Embed(
         title='Kicked.',
-        description=
-        f'**{member.mention} has been kicked by {ctx.message.author}.**',
+        description=f'**{member.mention} has been kicked by {ctx.message.author}.**',
         color=0xff0000)
     embed.add_field(name='Reason.', value=f'{reason}', inline=True)
     await ctx.send(embed=embed)
@@ -383,8 +386,7 @@ async def ban(ctx, member: commands.MemberConverter, *, reason=None):
     await member.ban(reason=reason)
     embed = discord.Embed(
         title='Banned.',
-        description=
-        f'**{member.mention} has been banned by {ctx.message.author}.**',
+        description=f'**{member.mention} has been banned by {ctx.message.author}.**',
         color=0xff0000)
     embed.add_field(name='Reason.', value=f'{reason}', inline=True)
     await ctx.send(embed=embed)
@@ -396,8 +398,7 @@ async def _unban(self, ctx, id: int):
     user = await self.client.fetch_user(id)
     embed = discord.Embed(
         title='Unbanned.',
-        description=
-        f'**{user.mention} has been unbanned by {ctx.message.author}.**',
+        description=f'**{user.mention} has been unbanned by {ctx.message.author}.**',
         color=0x00ff05)
     await ctx.send(embed=embed)
     await ctx.guild.unban(user)
@@ -432,8 +433,7 @@ async def tmute(ctx, member: discord.Member, time):
     await ctx.message.delete()
     await member.add_roles(muted_role)
     embed = discord.Embed(
-        description=
-        f"✅ **{member.display_name}#{member.discriminator} muted successfully.**",
+        description=f"✅ **{member.display_name}#{member.discriminator} muted successfully.**",
         color=0x00ff05)
     await ctx.send(embed=embed, delete_after=5)
     await asyncio.sleep(tempmute)
@@ -488,6 +488,7 @@ async def remove_role(ctx,
     embed.add_field(name='Reason', value=f'{reason}', inline=True)
     await ctx.send(embed=embed)
     await member.send(embed=embed)
+
 
 @client.event
 async def on_command_error(ctx, error):
@@ -556,19 +557,22 @@ async def Helpme(ctx):
         inline=True)
     await ctx.send(embed=embed)
 
+
 @client.command()
 async def suggestion(ctx, *, suggest):
     cursor.execute("INSERT OR IGNORE INTO suggestions VALUES(?,?);",
-                   (int(ctx.author.id), str(suggest)))
+                   (int(ctx.author.name), str(suggest)))
     db.commit()
-    embed = discord.Embed(title='Suggestion added.', description=f'**{suggest}**', color = discord.Color.green())
+    embed = discord.Embed(title='Suggestion added.',
+                          description=f'**{suggest}**', color=discord.Color.green())
     embed.set_author(name=f'{ctx.author.name}')
     await ctx.send(embed=embed)
+
 
 @client.command()
 @commands.has_permissions(kick_members=True)
 async def check_suggestions(ctx):
-    chk = cursor.execute("SELECT * FROM suggestions")
+    chk = cursor.execute("SELECT user_name, suggestion FROM suggestions")
     db.commit()
     chk = cursor.fetchall()
     chk = str(chk).strip("()[]{},")

@@ -560,7 +560,7 @@ async def Helpme(ctx):
 
 @client.command()
 async def suggestion(ctx, *, suggest):
-    cursor.execute("INSERT OR IGNORE INTO suggestions VALUES(?,?);",
+    cursor.execute("INSERT OR IGNORE INTO suggestions VALUES(?,?,?);",
                    (str(ctx.author.name), str(suggest), int(ctx.author.id)))
     db.commit()
     embed = discord.Embed(title='Suggestion added.',

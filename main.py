@@ -601,7 +601,8 @@ async def rem_suggestions(ctx, msg_id: int):
 
 @client.command(aliases=['mcmds'])
 @commands.has_permissions(kick_members=True)
-async def HelpMod(ctx, member: discord.Member):
+async def HelpMod(ctx):
+    member = discord.Member
     embed = discord.Embed(
         title="Help",
         description=

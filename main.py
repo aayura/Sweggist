@@ -10,6 +10,7 @@ import sqlite3
 import random
 import asyncio
 from discord.ext.commands import cooldown, BucketType
+import json
 
 intents = discord.Intents.all()
 intents.members = True
@@ -44,7 +45,9 @@ async def on_ready():
 
 @client.command()
 async def td(ctx):
-    pass
+    with open("tdq.json", "r") as f:
+        data = json.load(f[0])
+        await ctx.send(random.choice(data)
 
 
 @client.command()

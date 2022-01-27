@@ -543,67 +543,69 @@ async def help(ctx):
 
 @help.command()
 async def beg(ctx):
-    embed = discord.Embed(title='Beg', description='Beg for money like a loser.', color = 0xFFFF00)
+    embed = discord.Embed(title='Economic command `$Beg`',
+                          description='Beg for money like a loser.', color=0xFFFF00)
     embed.add_field(name='**syntax**', value='`$beg`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def work(ctx):
     embed = discord.Embed(
-        title='work', description='Work and earn money.', color=0xFFFF00)
+        title='Economic command `$work`', description='Work and earn money.', color=0xFFFF00)
     embed.add_field(name='**syntax**', value='`$work`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def tsend(ctx):
-    embed = discord.Embed(title='tsend', description='Transfer money from bank to bank.', color = 0xFFFF00)
+    embed = discord.Embed(title='Economic command `$tsend`', description='Transfer money from bank to bank.', color = 0xFFFF00)
     embed.add_field(name='**syntax**', value='`$tsend <member> [amount]`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def wsend(ctx):
     embed = discord.Embed(
-        title='wsend', description='Give money from wallet to wallet.', color=0xFFFF00)
+        title='Economic command `$wsend`', description='Give money from wallet to wallet.', color=0xFFFF00)
     embed.add_field(name='**syntax**', value='`$wsend <member> [amount]`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def dp(ctx):
-    embed = discord.Embed(title='dp', description='Deposit money from wallet to bank account.', color = 0xFFFF00)
+    embed = discord.Embed(title='Economic command `$dp`', description='Deposit money from wallet to bank account.', color = 0xFFFF00)
     embed.add_field(name='**syntax**', value='`$dp [amount]`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def wd(ctx):
     embed = discord.Embed(
-        title='wd', description='Withdraw money from bank to wallet.', color=0xFFFF00)
+        title='Economic command `$wd`', description='Withdraw money from bank to wallet.', color=0xFFFF00)
     embed.add_field(name='**syntax**', value='`$wd [amount]`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def nacc(ctx):
     embed = discord.Embed(
-        title='nacc', description='Open account.', color=0xFFFF00)
+        title='Economic command `$nacc`', description='Open account.', color=0xFFFF00)
     embed.add_field(name='**syntax**', value='`$nacc`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def coinflip(ctx):
-    embed = discord.Embed(title='coinflip', description='Flip a coin and bet money on your call.', color = 0xFFFF00)
+    embed = discord.Embed(title='Gambling command `$coinflip`',
+                          description='Flip a coin and bet money on your call.', color=0xFFFF00)
     embed.add_field(name='**syntax**', value='`$coinflip <Heads/Tails> [Money]`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def td(ctx):
     embed = discord.Embed(
-        title='td', description='Play Truth or Dare with your friends!', color=0xFFFF00)
+        title='Miscellaneous command `$td`', description='Play Truth or Dare with your friends!', color=0xFFFF00)
     embed.add_field(name='**syntax**', value='`$td [Player_1] [Player_2] [Player_N]`', inline = False)
     await ctx.send(embed=embed)
 
 @help.command()
 async def suggestion(ctx):
     embed = discord.Embed(
-        title='suggestion', description='Suggest something for the bot or the server.', color=0xFFFF00)
+        title='Miscellaneous command `$suggestion`', description='Suggest something for the bot or the server.', color=0xFFFF00)
     embed.add_field(name='**syntax**', value='`$suggestion [suggestion]`', inline = False)
     await ctx.send(embed=embed)
 

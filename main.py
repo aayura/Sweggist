@@ -47,7 +47,7 @@ async def on_ready():
 async def td(ctx):
     with open("tdq.json", "r") as f:
         data = json.load(f[0])
-        await ctx.send(random.choice(data)
+        await ctx.send(random.choice(data))
 
 
 @client.command()

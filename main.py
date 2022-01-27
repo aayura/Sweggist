@@ -1,3 +1,4 @@
+from unicodedata import name
 import discord
 from discord.ext import commands
 import os
@@ -21,10 +22,13 @@ async def on_ready():
                                 name="For sw_helpme")
     await client.change_presence(status=discord.Status.dnd, activity=activity)
 
-@slash.slash(name='helpme', description='Tells you the available commands.', guild_ids=[935002085685100544])
-async def help(ctx: SlashContext):
-    embed = discord.Embed(title='HELP COMMAND', description='/helpme - Will show this command', color = 0x0BD4B0)
-    await ctx.send(content='_helpme', embeds=[embed])
+@client.command()
+async def help(ctx):
+    embed = discord.Embed(title='Commands', description='These are the commands available to you at the moment.', color = discord.color.Green())
+    embed.add_field(name='help', value='Shows this embed.', inline = True)
+    await ctx.send(embed=embed)
+    
+# just for committing issues.
 
 keep_alive()
 TOKEN = os.environ['DISCORD_BOT_TOKEN']

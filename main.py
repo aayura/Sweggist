@@ -584,6 +584,7 @@ async def rem_suggestions(ctx, msg_id: int):
     cursor.execute(f"DELETE FROM suggestions WHERE msg_id = {msg_id}")
     db.commit()
     await ctx.send("Suggestion Removed.")
+    
 
 keep_alive()
 TOKEN = os.environ['DISCORD_BOT_TOKEN']

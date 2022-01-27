@@ -581,7 +581,7 @@ async def check_suggestions(ctx):
 @client.command()
 @commands.has_permissions(kick_members=True)
 async def rem_suggestions(ctx, msg_id):
-    # msg_id = int(msg_id)
+    msg_id = int(msg_id)
     cursor.execute(f"DELETE FROM suggestions WHERE msg_id = {msg_id};")
     db.commit()
     await ctx.send("Suggestion removed.")

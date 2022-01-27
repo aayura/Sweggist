@@ -384,7 +384,7 @@ async def wsend(ctx, member: discord.Member, money: int):
         )
     else:
         await ctx.send(
-            "You can't send more than 20000 coins via hand. Use v!transfermoney for transfering money to bank account."
+            "You can't send more than 20000 coins via hand. Use $tsend for transfering money to bank account."
         )
 
 
@@ -427,13 +427,8 @@ async def _unban(self, ctx, id: int):
 @client.command()
 @commands.has_permissions(kick_members=True)
 async def mute(ctx, member: commands.MemberConverter, *, reason=None):
-    if member.id == 385397540968988672 in ctx.message.content:
-        await ctx.send(
-            f'{ctx.author.mention} not a good idea trying to mute the server owner...'
-        )
-    else:
         guild = ctx.guild
-        mutedRole = discord.utils.get(guild.roles, name="Muted")
+        mutedRole = discord.utils.get(guild.roles, id=935417321453944833)
         await member.add_roles(mutedRole, reason=reason)
         embed = discord.Embed(
             title=f'Muted.',
@@ -443,11 +438,10 @@ async def mute(ctx, member: commands.MemberConverter, *, reason=None):
         await ctx.send(embed=embed)
         await member.send(embed=embed)
 
-
 @client.command()
 @commands.has_permissions(manage_messages=True)
 async def tmute(ctx, member: discord.Member, time):
-    muted_role = discord.utils.get(ctx.guild.roles, name="Muted")
+    muted_role = discord.utils.get(ctx.guild.roles, id=935417321453944833)
     time_convert = {"s": 1, "m": 60, "h": 3600, "d": 86400}
     tempmute = int(time[0]) * time_convert[time[-1]]
     await ctx.message.delete()
@@ -464,7 +458,7 @@ async def tmute(ctx, member: discord.Member, time):
 @commands.has_permissions(kick_members=True)
 async def unmute(ctx, member: commands.MemberConverter):
     guild = ctx.guild
-    mutedRole = discord.utils.get(guild.roles, name="Muted")
+    mutedRole = discord.utils.get(guild.roles, id=935417321453944833)
     await member.remove_roles(mutedRole)
     embed = discord.Embed(
         title=f'Unmuted.',
@@ -483,7 +477,7 @@ async def clear(ctx, amount=10):
 
 @client.command(pass_context=True)
 @commands.has_permissions(administrator=True)
-async def add_role(ctx, member: commands.MemberConverter, role: discord.Role):
+async def ar(ctx, member: commands.MemberConverter, role: discord.Role):
     await member.add_roles(role)
     embed = discord.Embed(
         title='Role given.',
@@ -495,7 +489,7 @@ async def add_role(ctx, member: commands.MemberConverter, role: discord.Role):
 
 @client.command(pass_context=True)
 @commands.has_permissions(administrator=True)
-async def remove_role(ctx,
+async def rr(ctx,
                       member: commands.MemberConverter,
                       role: discord.Role,
                       *,
@@ -604,6 +598,46 @@ async def rem_suggestions(ctx, msg_id: int):
     cursor.execute(f"DELETE FROM suggestions WHERE msg_id = {msg_id}")
     db.commit()
     await ctx.send("Suggestion Removed.")  
+
+@client.command(aliases=['mcmds'])
+@commands.has_permissions(kick_members=True)
+async def HelpMod(ctx, member: discord.Member):
+    embed = discord.Embed(
+        title="Help",
+        description=
+        "These are the commands available for use for mods at the moment.",
+        color=0x000000)
+    embed.set_author(name="Sweggist")
+    embed.add_field(name="$clear",
+                    value="Clears messages for you.",
+                    inline=False)
+    embed.add_field(name="$kick",
+                    value="Kicks the offender for you.",
+                    inline=False)
+    embed.add_field(name="$ban",
+                    value="Bans the offender for you.",
+                    inline=False)
+    embed.add_field(name="$unban",
+                    value="Unbans the pity soul for you.",
+                    inline=False)
+    embed.add_field(name="$mute", value="Shut them up.", inline=False)
+    embed.add_field(name="$tmute",
+                    value="Shut them up, Temporarily.",
+                    inline=False)
+    embed.add_field(name="$unmute",
+                    value="Unmute the person you so mercilessly muted.",
+                    inline=False)
+    embed.add_field(
+        name="$ar",
+        value="Add a new role to someone. It better be a promotion :D",
+        inline=False)
+    embed.add_field(
+        name="$rr",
+        value=
+        "remove roles from power abusers. Great powers comes with great responsibilities ;)",
+        inline=False)
+    await ctx.send(f'{ctx.author.mention} check your DMs!')
+    await member.send(embed=embed)
 
 keep_alive()
 TOKEN = os.environ['DISCORD_BOT_TOKEN']

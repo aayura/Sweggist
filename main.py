@@ -39,7 +39,7 @@ db.commit()
 async def on_ready():
     print("Bot is ready.")
     activity = discord.Activity(type=discord.ActivityType.watching,
-                                name="For $Helpme.")
+                                name="For $help.")
     await client.change_presence(status=discord.Status.dnd, activity=activity)
 
 

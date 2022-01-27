@@ -14,7 +14,7 @@ client = commands.Bot(command_prefix='$',
                       case_insensitive=True,
                       intents=intents, help_command=None)
 
-slash = SlashCommand(client)
+slash = SlashCommand(client, sync_commands=True)
 
 @client.event
 async def on_ready():
@@ -31,7 +31,9 @@ async def help(ctx):
     embed.set_footer(text='Made by ! H1ddeN#1952 and Prakhar#7004')
     await ctx.send(embed=embed)
 
-# just for committing issues.
+@slash.slash(name='ping', description='Pings the user, Testing slash commands.')
+async def ping(ctx):
+    await ctx.send(f"{ctx.author.mention}")
 
 keep_alive()
 TOKEN = os.environ['DISCORD_BOT_TOKEN']

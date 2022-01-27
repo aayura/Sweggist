@@ -25,8 +25,9 @@ async def on_ready():
 
 @client.command()
 async def help(ctx):
-    embed = discord.Embed(title='Commands', description='These are the commands available to you at the moment.', color = discord.Color.green())
+    embed = discord.Embed(title='Commands', description=f'**These are the commands available to you at the moment, {ctx.author.mention}.**', color = discord.Color.green())
     embed.add_field(name='help', value='Shows this embed.', inline = True)
+    embed.set_author(name="Made by ! H1ddeN#1952 and Prakhar#7004")
     await ctx.send(embed=embed)
 
 # just for committing issues.

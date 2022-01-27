@@ -29,7 +29,7 @@ cursor.execute(
 db.commit()
 
 cursor.execute(
-    """CREATE TABLE IF NOT EXISTS suggestions (user_name text,suggestion text, user_id int PRIMARY KEY)"""
+    """CREATE TABLE IF NOT EXISTS suggestions (user_name text,suggestion text, msg_id int PRIMARY KEY)"""
 )
 db.commit()
 
@@ -561,7 +561,7 @@ async def Helpme(ctx):
 @client.command()
 async def suggestion(ctx, *, suggest):
     cursor.execute("INSERT OR IGNORE INTO suggestions VALUES(?,?,?);",
-                   (str(ctx.author.name), str(suggest), int(ctx.author.id)))
+                   (str(ctx.author.name), str(suggest), int(ctx.message.id)))
     db.commit()
     embed = discord.Embed(title='Suggestion added.',
                           description=f'**{suggest}**', color=discord.Color.green())
@@ -572,11 +572,18 @@ async def suggestion(ctx, *, suggest):
 @client.command()
 @commands.has_permissions(kick_members=True)
 async def check_suggestions(ctx):
-    chk = cursor.execute("SELECT user_name, suggestion FROM suggestions")
+    chk = cursor.execute("SELECT * FROM suggestions")
     db.commit()
     chk = cursor.fetchall()
-    chk = str(chk).strip("()[]{},")
-    await ctx.send(f'{chk}')
+    for i in chk:
+        await ctx.send(f'{i}')
+
+@client.command()
+@commands.has_permissions(kick_members=True)
+async def rem_suggestions(ctx, msg_id):
+    cursor.execute(f"DELETE FROM suggestions WHERE msg_id = {msg_id};")
+    db.commit()
+    await ctx.send("Suggestion removed.")
 
 keep_alive()
 TOKEN = os.environ['DISCORD_BOT_TOKEN']

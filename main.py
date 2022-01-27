@@ -27,7 +27,7 @@ async def on_ready():
 async def help(ctx):
     embed = discord.Embed(title='Commands', description='**These are the commands available to you at the moment.**', color = discord.Color.green())
     embed.add_field(name='help', value='Shows this embed.', inline = True)
-    embed.set_author(name=f"{ctx.author.mention}")
+    embed.set_author(name=f"{ctx.author.name}")
     embed.set_footer(text='Made by ! H1ddeN#1952 and Prakhar#7004')
     await ctx.send(embed=embed)
 

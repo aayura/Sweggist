@@ -563,6 +563,7 @@ async def suggestion(ctx, *, suggest):
     db.commit()
     embed = discord.Embed(title='Suggestion added.', description=f'**{suggest}**', color = discord.Color.green())
     embed.set_author(name=f'{ctx.author.name}')
+    await ctx.send(embed=embed)
 
 @client.command()
 @commands.has_permissions(kick_members=True)

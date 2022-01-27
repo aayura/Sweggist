@@ -36,17 +36,8 @@ async def on_ready():
     await client.change_presence(status=discord.Status.dnd, activity=activity)
 
 @client.command()
-async def help(ctx):
-    embed = discord.Embed(title='Commands', description='**These are the commands available to you at the moment.**', color = discord.Color.green())
-    embed.add_field(name='help', value='Shows this embed.', inline = True)
-    embed.set_author(name=f"{ctx.author.name}")
-    embed.set_footer(text='Made by ! H1ddeN#1952 and Prakhar#7004')
-    await ctx.send(embed=embed)
-
-@client.command()
 async def td(ctx):
     pass
-
 
 @client.command()
 async def nacc(ctx):
@@ -520,6 +511,49 @@ async def on_command_error(ctx, error):
         await ctx.send(embed=embed)
     else:
       raise error
+
+
+@client.command(aliases=["cmds"])
+async def Helpme(ctx):
+    embed = discord.Embed(
+        title='Help',
+        description='These are the commands available for use at the moment.',
+        color=0x000000)
+    embed.set_author(name=f"{ctx.author.name}")
+    embed.add_field(
+        name="v!paww",
+        value='Happy animals make humans happy, Watch some cute pandas.',
+        inline=True)
+    embed.add_field(name="$nacc",
+                    value='New currency system! Open an account now!',
+                    inline=True)
+    embed.add_field(name="$beg",
+                    value='Beg to get money... Totally not cool but ok.',
+                    inline=True)
+    embed.add_field(name="$bal",
+                    value='Check your bank account balance.',
+                    inline=True)
+    embed.add_field(
+        name="$coinflip",
+        value='Feeling lucky? Bet on coin-flipping and earn money.',
+        inline=True)
+    embed.add_field(name="$work",
+                    value='Earn money the right way, Work for it.',
+                    inline=True)
+    embed.add_field(name="$withdraw",
+                    value='Withdraw money from your bank account.',
+                    inline=True)
+    embed.add_field(name="$deposit",
+                    value='Deposit money to your bank account.',
+                    inline=True)
+    embed.add_field(name="$wsend",
+                    value='Give upto 20k coins to anyone by hand.',
+                    inline=True)
+    embed.add_field(
+        name="$tsend",
+        value='Transfer as much money as you want to anyone\'s bank account.',
+        inline=True)
+    await ctx.send(embed=embed)
 
 keep_alive()
 TOKEN = os.environ['DISCORD_BOT_TOKEN']

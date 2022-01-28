@@ -30,7 +30,7 @@ cursor.execute(
 db.commit()
 
 cursor.execute(
-    """CREATE TABLE IF NOT EXISTS suggestions (msg_id int PRIMARY KEY,user_name text,suggestion text)"""
+    """CREATE TABLE IF NOT EXISTS suggestions (msg_id text PRIMARY KEY,user_name text,suggestion text)"""
 )
 db.commit()
 

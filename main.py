@@ -34,7 +34,7 @@ cursor.execute(
 )
 db.commit()
 
-cursor.execute("""CRATE TABLE IF NOT EXISTS shop_items (item_id int PRIMARY KEY, quantity int, amount int)""")
+cursor.execute("""CREATE TABLE IF NOT EXISTS shop_items (item_id int PRIMARY KEY, quantity int, amount int)""")
 db.commit()
 
 @client.event

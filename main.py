@@ -34,8 +34,10 @@ cursor.execute(
 )
 db.commit()
 
-cursor.execute("""CREATE TABLE IF NOT EXISTS shop_items (item_id text PRIMARY KEY, quantity int, amount int)""")
+cursor.execute(
+    """CREATE TABLE IF NOT EXISTS shop_items (item_id text PRIMARY KEY, quantity int, amount int)""")
 db.commit()
+
 
 @client.event
 async def on_ready():
@@ -55,9 +57,10 @@ async def td(ctx, *Players: commands.MemberConverter):
     await ctx.send("Truth or dare?")
     with open("tdq.json", "r") as f:
         data = json.load(f)
+
         def check(msg):
-          return msg.author.id == player.id and msg.channel == ctx.channel and msg.content.lower() in ["truth","dare"]
-        msg = await client.wait_for("message",check=check, timeout = 10)
+          return msg.author.id == player.id and msg.channel == ctx.channel and msg.content.lower() in ["truth", "dare"]
+        msg = await client.wait_for("message", check=check, timeout=10)
         try:
             if msg.content.lower() == "truth":
                 await ctx.send(random.choice(data["truth"]))
@@ -67,6 +70,7 @@ async def td(ctx, *Players: commands.MemberConverter):
                 await ctx.send("This is truth and dare not something else, Choose from truth or dare.")
         except asyncio.TimeoutError:
             await ctx.send("Timed out, Reply faster next time.")
+
 
 @client.command()
 async def nacc(ctx):
@@ -428,16 +432,17 @@ async def _unban(self, ctx, id: int):
 @client.command()
 @commands.has_permissions(kick_members=True)
 async def mute(ctx, member: commands.MemberConverter, *, reason=None):
-        guild = ctx.guild
-        mutedRole = discord.utils.get(guild.roles, id=935417321453944833)
-        await member.add_roles(mutedRole, reason=reason)
-        embed = discord.Embed(
-            title=f'Muted.',
-            description=f'**{member.mention} has been muted.**',
-            color=0xff0000)
-        embed.add_field(name='reason', value=f'{reason}', inline=True)
-        await ctx.send(embed=embed)
-        await member.send(embed=embed)
+    guild = ctx.guild
+    mutedRole = discord.utils.get(guild.roles, id=935417321453944833)
+    await member.add_roles(mutedRole, reason=reason)
+    embed = discord.Embed(
+        title=f'Muted.',
+        description=f'**{member.mention} has been muted.**',
+        color=0xff0000)
+    embed.add_field(name='reason', value=f'{reason}', inline=True)
+    await ctx.send(embed=embed)
+    await member.send(embed=embed)
+
 
 @client.command()
 @commands.has_permissions(manage_messages=True)
@@ -491,10 +496,10 @@ async def ar(ctx, member: commands.MemberConverter, role: discord.Role):
 @client.command(pass_context=True)
 @commands.has_permissions(administrator=True)
 async def rr(ctx,
-                      member: commands.MemberConverter,
-                      role: discord.Role,
-                      *,
-                      reason=None):
+             member: commands.MemberConverter,
+             role: discord.Role,
+             *,
+             reason=None):
     await member.remove_roles(role)
     embed = discord.Embed(
         title='Role removed.',
@@ -533,82 +538,104 @@ async def on_command_error(ctx, error):
     else:
       raise error
 
+
 @client.group(invoke_without_command=True)
 async def help(ctx):
     embed = discord.Embed(
         title='Help', description='List of commands available to you, type $help <cmd> for more information.', color=0xFFFF00)
-    embed.add_field(name='**Ecomony commands.**', value='beg, work, tsend, wsend, dp, wd, nacc', inline = False)
-    embed.add_field(name='**Gambling commands**', value='coinflip', inline = False)
-    embed.add_field(name='**Miscellaneous commands**', value='td, suggestion', inline=False)
+    embed.add_field(name='**Ecomony commands.**',
+                    value='beg, work, tsend, wsend, dp, wd, nacc', inline=False)
+    embed.add_field(name='**Gambling commands**',
+                    value='coinflip', inline=False)
+    embed.add_field(name='**Miscellaneous commands**',
+                    value='td, suggestion', inline=False)
     await ctx.send(embed=embed)
+
 
 @help.command()
 async def beg(ctx):
     embed = discord.Embed(title='Economic command `$Beg`',
                           description='Beg for money like a loser.', color=0xFFFF00)
-    embed.add_field(name='**syntax**', value='`$beg`', inline = False)
+    embed.add_field(name='**syntax**', value='`$beg`', inline=False)
     await ctx.send(embed=embed)
+
 
 @help.command()
 async def work(ctx):
     embed = discord.Embed(
         title='Economic command `$work`', description='Work and earn money.', color=0xFFFF00)
-    embed.add_field(name='**syntax**', value='`$work`', inline = False)
+    embed.add_field(name='**syntax**', value='`$work`', inline=False)
     await ctx.send(embed=embed)
+
 
 @help.command()
 async def tsend(ctx):
-    embed = discord.Embed(title='Economic command `$tsend`', description='Transfer money from bank to bank.', color = 0xFFFF00)
-    embed.add_field(name='**syntax**', value='`$tsend <member> [amount]`', inline = False)
+    embed = discord.Embed(title='Economic command `$tsend`',
+                          description='Transfer money from bank to bank.', color=0xFFFF00)
+    embed.add_field(name='**syntax**',
+                    value='`$tsend <member> [amount]`', inline=False)
     await ctx.send(embed=embed)
+
 
 @help.command()
 async def wsend(ctx):
     embed = discord.Embed(
         title='Economic command `$wsend`', description='Give money from wallet to wallet.', color=0xFFFF00)
-    embed.add_field(name='**syntax**', value='`$wsend <member> [amount]`', inline = False)
+    embed.add_field(name='**syntax**',
+                    value='`$wsend <member> [amount]`', inline=False)
     await ctx.send(embed=embed)
+
 
 @help.command()
 async def dp(ctx):
-    embed = discord.Embed(title='Economic command `$dp`', description='Deposit money from wallet to bank account.', color = 0xFFFF00)
-    embed.add_field(name='**syntax**', value='`$dp [amount]`', inline = False)
+    embed = discord.Embed(title='Economic command `$dp`',
+                          description='Deposit money from wallet to bank account.', color=0xFFFF00)
+    embed.add_field(name='**syntax**', value='`$dp [amount]`', inline=False)
     await ctx.send(embed=embed)
+
 
 @help.command()
 async def wd(ctx):
     embed = discord.Embed(
         title='Economic command `$wd`', description='Withdraw money from bank to wallet.', color=0xFFFF00)
-    embed.add_field(name='**syntax**', value='`$wd [amount]`', inline = False)
+    embed.add_field(name='**syntax**', value='`$wd [amount]`', inline=False)
     await ctx.send(embed=embed)
+
 
 @help.command()
 async def nacc(ctx):
     embed = discord.Embed(
         title='Economic command `$nacc`', description='Open account.', color=0xFFFF00)
-    embed.add_field(name='**syntax**', value='`$nacc`', inline = False)
+    embed.add_field(name='**syntax**', value='`$nacc`', inline=False)
     await ctx.send(embed=embed)
+
 
 @help.command()
 async def coinflip(ctx):
     embed = discord.Embed(title='Gambling command `$coinflip`',
                           description='Flip a coin and bet money on your call.', color=0xFFFF00)
-    embed.add_field(name='**syntax**', value='`$coinflip <Heads/Tails> [Money]`', inline = False)
+    embed.add_field(name='**syntax**',
+                    value='`$coinflip <Heads/Tails> [Money]`', inline=False)
     await ctx.send(embed=embed)
+
 
 @help.command()
 async def td(ctx):
     embed = discord.Embed(
         title='Miscellaneous command `$td`', description='Play Truth or Dare with your friends!', color=0xFFFF00)
-    embed.add_field(name='**syntax**', value='`$td [Player_1] [Player_2] [Player_N]`', inline = False)
+    embed.add_field(name='**syntax**',
+                    value='`$td [Player_1] [Player_2] [Player_N]`', inline=False)
     await ctx.send(embed=embed)
+
 
 @help.command()
 async def suggestion(ctx):
     embed = discord.Embed(
         title='Miscellaneous command `$suggestion`', description='Suggest something for the bot or the server.', color=0xFFFF00)
-    embed.add_field(name='**syntax**', value='`$suggestion [suggestion]`', inline = False)
+    embed.add_field(name='**syntax**',
+                    value='`$suggestion [suggestion]`', inline=False)
     await ctx.send(embed=embed)
+
 
 @client.command()
 async def suggestion(ctx, *, suggest):
@@ -630,12 +657,14 @@ async def check_suggestions(ctx):
     for i in chk:
         await ctx.send(f'{str(i)}')
 
+
 @client.command()
 @commands.has_permissions(kick_members=True)
 async def rem_suggestions(ctx, msg_id: int):
     cursor.execute(f"DELETE FROM suggestions WHERE msg_id = {msg_id}")
     db.commit()
-    await ctx.send("Suggestion Removed.")  
+    await ctx.send("Suggestion Removed.")
+
 
 @client.command(aliases=['mcmds'])
 @commands.has_permissions(kick_members=True)
@@ -643,8 +672,7 @@ async def HelpMod(ctx):
     member = discord.Member
     embed = discord.Embed(
         title="Help",
-        description=
-        "These are the commands available for use for mods at the moment.",
+        description="These are the commands available for use for mods at the moment.",
         color=0x000000)
     embed.set_author(name="Sweggist")
     embed.add_field(name="$clear",
@@ -672,18 +700,20 @@ async def HelpMod(ctx):
         inline=False)
     embed.add_field(
         name="$rr",
-        value=
-        "remove roles from power abusers. Great powers comes with great responsibilities ;)",
+        value="remove roles from power abusers. Great powers comes with great responsibilities ;)",
         inline=False)
     await ctx.send(f'{ctx.author.mention} check your DMs!')
     await member.send(embed=embed)
 
+
 @client.command()
 @commands.has_permissions(kick_members=True)
 async def add_item(ctx, itemid, quantity: int, amount: int):
-    cursor.execute("INSERT OR IGNORE INTO shop_items VALUES(?,?,?)",(itemid, quantity, amount))
+    cursor.execute("INSERT OR IGNORE INTO shop_items VALUES(?,?,?)",
+                   (itemid, quantity, amount))
     db.commit()
     await ctx.send(f"Emoji {itemid} added in quantity {quantity} for {amount}:coin: coins.")
+
 
 @client.command()
 @commands.has_permissions(kick_members=True)
@@ -692,6 +722,15 @@ async def check_items(ctx):
     res = cursor.fetchall()
     for i in res:
         await ctx.send(f'{i}')
+
+@client.command()
+async def buy(ctx):
+    cursor.execute("SELECT * FROM shop_items")
+    result = cursor.fetchall()
+    lst = []
+    for i in result:
+        lst.append(i)
+    await ctx.send(f"{lst}")
 
 keep_alive()
 TOKEN = os.environ['DISCORD_BOT_TOKEN']

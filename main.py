@@ -725,12 +725,7 @@ async def check_items(ctx):
 
 @client.command()
 async def buy(ctx):
-    cursor.execute("SELECT * FROM shop_items")
-    result = cursor.fetchall()
-    lst = []
-    for i in result:
-        lst.append(i)
-    await ctx.send(f"{lst}")
+    pass
 
 keep_alive()
 TOKEN = os.environ['DISCORD_BOT_TOKEN']

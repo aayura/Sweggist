@@ -56,7 +56,6 @@ async def td(ctx, *Players: commands.MemberConverter):
         def check(msg):
           return msg.author.id == player.id and msg.channel == ctx.channel and msg.content.lower() in ["truth","dare"]
         msg = await client.wait_for("message",check=check, timeout = 10)
-
         try:
             if msg.content.lower() == "truth":
                 await ctx.send(random.choice(data["truth"]))

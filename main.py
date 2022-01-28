@@ -34,6 +34,8 @@ cursor.execute(
 )
 db.commit()
 
+cursor.execute("""CRATE TABLE IF NOT EXISTS shop_items (item_id int PRIMARY KEY, quantity int, amount int)""")
+db.commit()
 
 @client.event
 async def on_ready():
@@ -675,6 +677,21 @@ async def HelpMod(ctx):
         inline=False)
     await ctx.send(f'{ctx.author.mention} check your DMs!')
     await member.send(embed=embed)
+
+@client.command()
+@commands.has_permissions(kick_members=True)
+async def add_item(ctx, itemid: int, quantity: int, amount: int):
+    cursor.execute("INSERT OR IGNORE INTO shop_items VALUES(?,?,?)",(itemid, quantity, amount))
+    db.commit()
+    await ctx.send(f"Emoji {itemid} added in quantity {quantity} for {amount}:coin: coins.")
+
+@client.command()
+@commands.has_permissions(kick_members=True)
+async def check_items(ctx):
+    cursor.execute("SELECT * FROM shop_items")
+    res = cursor.fetchall()
+    for i in res:
+        await ctx.send(f'{i}')
 
 keep_alive()
 TOKEN = os.environ['DISCORD_BOT_TOKEN']

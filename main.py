@@ -69,8 +69,6 @@ async def td(ctx, *Players: commands.MemberConverter):
             else:
                 await ctx.send("This is truth and dare not something else, Choose from truth or dare.")
         except asyncio.TimeoutError:
-            await ctx.send("Timed out, Reply faster next time.")
-
 
 @client.command()
 async def nacc(ctx):

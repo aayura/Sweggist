@@ -34,6 +34,9 @@ db.commit()
 @client.event
 async def on_ready():
     print(f"Logged in as {client.user}!")
+    activity = disnake.Activity(type=disnake.ActivityType.watching,
+                                name="For /help.")
+    await client.change_presence(status=disnake.Status.dnd, activity=activity)
 
 @bot.slash_command(description="Play Truth and Dare with your friends.")
 async def td(inter, *Players: commands.MemberConverter):
